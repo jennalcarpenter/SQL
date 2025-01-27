@@ -1,0 +1,31 @@
+SELECT *
+FROM fortune_companies;
+
+SELECT company_name, paid_time_off_days,
+CASE WHEN paid_time_off_days>=15 THEN "15+"
+WHEN paid_time_off_days>=20 THEN "20+"
+END AS "paid_days_off"
+FROM fortune_companies;
+
+--Use a HAVING clause to determine something interesting about the data per category.
+
+SELECT industry
+FROM fortune_companies
+GROUP BY industry
+HAVING SUM(paid_time_off_days) > 15;
+
+SELECT DISTINCT industry
+FROM fortune_companies
+GROUP BY revenue
+HAVING MIN(500.00) ;
+
+SELECT company_name
+FROM fortune_companies
+GROUP BY avg_employee_tenure
+HAVING AVG(10.00);
+
+SELECT DISTINCT company_name, AVG(maternity_leave_weeks) AS "maternity_leave_weeks"
+FROM fortune_companies
+GROUP BY maternity_leave_weeks
+HAVING AVG(10.00)
+ORDER BY maternity_leave_weeks DESC;
